@@ -1,3 +1,4 @@
+version: "3"
 services:
   web:
     image: "${DOCKER_IMAGE}"
@@ -8,7 +9,7 @@ services:
     depends_on:
       - mysql
   mysql:
-    image: "${DB_IMAGE}"
+    image: menghiengsornit/java-mvn-addressbook:mysql
     volumes:
       - mysql-data:/var/lib/mysql
     environment:
