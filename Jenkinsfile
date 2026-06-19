@@ -2,9 +2,9 @@ pipeline{
     agent none
    
     environment{
-       BUILD_SERVER_IP='ec2-user@52.74.241.124'
+       BUILD_SERVER_IP='ec2-user@13.228.207.158'
        IMAGE_NAME='menghiengsornit/java-mvn-addressbook:php$BUILD_NUMBER'
-       DEPLOY_SERVER_IP='ec2-user@54.254.100.85'
+       DEPLOY_SERVER_IP='ec2-user@54.251.13.131'
     }
     stages{
        
