@@ -3,7 +3,7 @@ pipeline{
    
     environment{
        BUILD_SERVER_IP='ec2-user@54.251.13.131'
-       IMAGE_NAME='menghiengsornit/java-mvn-addressbook:php$BUILD_NUMBER'
+       IMAGE_NAME="menghiengsornit/java-mvn-addressbook:php${BUILD_NUMBER}"
        DEPLOY_SERVER_IP='ec2-user@3.1.12.94'
     }
 
@@ -18,9 +18,9 @@ pipeline{
                 echo "Building the php image"
                 sh "scp -o StrictHostKeyChecking=no -r BuildConfig ${BUILD_SERVER_IP}:/home/ec2-user"
                 sh "ssh -o StrictHostKeyChecking=no ${BUILD_SERVER_IP} 'bash ~/BuildConfig/docker-script.sh'"
-                sh "ssh ${BUILD_SERVER_IP} sudo docker build -t ${IMAGE_NAME} /home/ec2-user/BuildConfig/"
-                sh "ssh ${BUILD_SERVER_IP} sudo docker login -u $USERNAME -p $PASSWORD"
-                sh "ssh ${BUILD_SERVER_IP} sudo docker push ${IMAGE_NAME}"
+                sh "ssh -o StrictHostKeyChecking=no ${BUILD_SERVER_IP} sudo docker build -t ${IMAGE_NAME} /home/ec2-user/BuildConfig/"
+                sh "ssh -o StrictHostKeyChecking=no ${BUILD_SERVER_IP} sudo docker login -u $USERNAME -p $PASSWORD"
+                sh "ssh -o StrictHostKeyChecking=no ${BUILD_SERVER_IP} sudo docker push ${IMAGE_NAME}"
                 }
             }
         }
@@ -35,8 +35,8 @@ pipeline{
                 echo "Deploy PHP and Sql containers"
                 sh "scp -o StrictHostKeyChecking=no -r DeployConfig ${DEPLOY_SERVER_IP}:/home/ec2-user"
                 sh "ssh -o StrictHostKeyChecking=no ${DEPLOY_SERVER_IP} 'bash ~/DeployConfig/docker-script.sh'"
-                sh "ssh ${DEPLOY_SERVER_IP} sudo docker login -u $USERNAME -p $PASSWORD"
-                sh "ssh ${DEPLOY_SERVER_IP} bash /home/ec2-user/DeployConfig/docker-compose-script.sh ${IMAGE_NAME}"
+                sh "ssh -o StrictHostKeyChecking=no ${DEPLOY_SERVER_IP} sudo docker login -u $USERNAME -p $PASSWORD"
+                sh "ssh -o StrictHostKeyChecking=no ${DEPLOY_SERVER_IP} bash /home/ec2-user/DeployConfig/docker-compose-script.sh ${IMAGE_NAME}"
                 }
             }
         }
