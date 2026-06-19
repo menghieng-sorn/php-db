@@ -4,6 +4,7 @@ pipeline{
     environment{
        BUILD_SERVER_IP='ec2-user@54.251.13.131'
        IMAGE_NAME="menghiengsornit/java-mvn-addressbook:php${BUILD_NUMBER}"
+       DB_IMAGE_NAME="menghiengsornit/java-mvn-addressbook:db${BUILD_NUMBER}"
        DEPLOY_SERVER_IP='ec2-user@3.1.12.94'
     }
 
