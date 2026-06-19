@@ -2,10 +2,10 @@ pipeline{
     agent none
 
     environment{
-       BUILD_SERVER_IP='ec2-user@54.251.13.131'
-       IMAGE_NAME='menghiengsornit/java-mvn-addressbook:php$BUILD_NUMBER'
-       DB_IMAGE_NAME='menghiengsornit/java-mvn-addressbook:mysql'
-       DEPLOY_SERVER_IP='ec2-user@52.74.241.124'
+       BUILD_SERVER_IP="ec2-user@54.251.13.131"
+       IMAGE_NAME="menghiengsornit/java-mvn-addressbook:php$BUILD_NUMBER"
+       DB_IMAGE_NAME="menghiengsornit/java-mvn-addressbook:mysql"
+       DEPLOY_SERVER_IP="ec2-user@52.74.241.124"
     }
     stages{
 
@@ -18,9 +18,9 @@ pipeline{
                 echo "Building the php image"
                 sh "scp -o StrictHostKeyChecking=no -r BuildConfig ${BUILD_SERVER_IP}:/home/ec2-user"
                 sh "ssh -o StrictHostKeyChecking=no ${BUILD_SERVER_IP} 'bash ~/BuildConfig/docker-script.sh'"
-                sh "ssh ${BUILD_SERVER_IP} sudo docker build -t ${IMAGE_NAME} /home/ec2-user/BuildConfig/"
-                sh "ssh ${BUILD_SERVER_IP} sudo docker login -u $USERNAME -p $PASSWORD"
-                sh "ssh ${BUILD_SERVER_IP} sudo docker push ${IMAGE_NAME}"
+                sh "ssh -o StrictHostKeyChecking=no ${BUILD_SERVER_IP} sudo docker build -t ${IMAGE_NAME} /home/ec2-user/BuildConfig/"
+                sh "ssh -o StrictHostKeyChecking=no ${BUILD_SERVER_IP} sudo docker login -u $USERNAME -p $PASSWORD"
+                sh "ssh -o StrictHostKeyChecking=no ${BUILD_SERVER_IP} sudo docker push ${IMAGE_NAME}"
                 }
             }
         }
