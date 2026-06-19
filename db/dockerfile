@@ -1,4 +1,4 @@
-from mysql
-env MYSQL_DATABASE mydatabase
-# env MYSQL_ROOT_PASSWORD password
-copy createTable.sql /docker-entrypoint-initdb.d/
+FROM mysql
+ENV MYSQL_DATABASE mydatabase
+ENV MYSQL_ROOT_PASSWORD password
+COPY createTable.sql /docker-entrypoint-initdb.d/
