@@ -6,13 +6,14 @@ pipeline{
        IMAGE_NAME='menghiengsornit/java-mvn-addressbook:php$BUILD_NUMBER'
        DEPLOY_SERVER_IP='ec2-user@54.254.100.85'
     }
+
     stages{
        
         stage('BUILD PHP DOCKERIMAGE AND PUSH TO DOCKERHUB'){
             agent any
             steps{
                 script{
-                sshagent(['slave']) {
+                sshagent(['slave2']) {
                 withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
                 echo "Building the php image"
                 sh "scp -o StrictHostKeyChecking=no -r BuildConfig ${BUILD_SERVER_IP}:/home/ec2-user"
@@ -29,7 +30,7 @@ pipeline{
             agent any
             steps{
                 script{
-                sshagent(['slave']) {
+                sshagent(['slave2']) {
                 withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
                 echo "Deploy PHP and Sql containers"
                 sh "scp -o StrictHostKeyChecking=no -r DeployConfig ${DEPLOY_SERVER_IP}:/home/ec2-user"
