@@ -1,0 +1,20 @@
+version: "3"
+services:
+  web:
+    image: ${DOCKER_IMAGE}
+    ports:
+      - "8001-8002:80"
+    deploy:
+      replicas: 2
+    depends_on:
+      - mysql
+  mysql:
+    image: menghiengsornit/java-mvn-addressbook:mysql
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: mydatabase
+
+volumes:
+  mysql-data: {}
