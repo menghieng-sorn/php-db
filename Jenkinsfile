@@ -42,7 +42,6 @@ pipeline{
         }
     }
 }
-
         stage('RUN PHP_DB with Dockercompose'){
             agent any
             steps{
