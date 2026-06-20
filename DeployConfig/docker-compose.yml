@@ -9,7 +9,7 @@ services:
     depends_on:
       - mysql
   mysql:
-    image: menghiengsornit/java-mvn-addressbook:mysql
+    image: "${DB_IMAGE}"
     volumes:
       - mysql-data:/var/lib/mysql
     environment:
